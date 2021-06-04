@@ -144,3 +144,7 @@ C:\Users\Toti\Desktop\puntoNet\Challenge\listaDeTareas\obj\Debug\net5.0\ListaDeT
 C:\Users\Toti\Desktop\puntoNet\Challenge\listaDeTareas\obj\Debug\net5.0\ref\ListaDeTareas.dll
 C:\Users\Toti\Desktop\puntoNet\Challenge\listaDeTareas\obj\Debug\net5.0\ListaDeTareas.pdb
 C:\Users\Toti\Desktop\puntoNet\Challenge\listaDeTareas\obj\Debug\net5.0\ListaDeTareas.genruntimeconfig.cache
+C:\Users\Toti\Desktop\puntoNet\Challenge\listaDeTareas\obj\Debug\net5.0\Razor\Views\Tarea\Index.cshtml.g.cs
+C:\Users\Toti\Desktop\puntoNet\Challenge\listaDeTareas\obj\Debug\net5.0\Razor\Views\Tarea\Todas.cshtml.g.cs
+C:\Users\Toti\Desktop\puntoNet\Challenge\listaDeTareas\obj\Debug\net5.0\Razor\Views\Tarea\Propias.cshtml.g.cs
+C:\Users\Toti\Desktop\puntoNet\Challenge\listaDeTareas\obj\Debug\net5.0\Razor\Views\Tarea\_Formulario.cshtml.g.cs

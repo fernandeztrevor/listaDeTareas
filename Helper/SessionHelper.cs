@@ -32,5 +32,6 @@ namespace ListaDeTareas.Helper
             var r = ((ClaimsIdentity)User.Identity).FindFirst(ClaimTypes.Email);
             return r == null ? "" : r.Value;
         }
+        
     }
 }

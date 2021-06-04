@@ -62,6 +62,7 @@ namespace ListaDeTareas.Controllers
                         var identity = new ClaimsIdentity(CookieAuthenticationDefaults.AuthenticationScheme, ClaimTypes.Name, ClaimTypes.Role);
                         identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, result.IdUsuario.ToString()));
                         identity.AddClaim(new Claim(ClaimTypes.Email, result.Email));
+                        identity.AddClaim(new Claim(ClaimTypes.Name, result.Email));
 
                         identity.AddClaim(new Claim("Rol", result.IdRol.ToString()));
 
