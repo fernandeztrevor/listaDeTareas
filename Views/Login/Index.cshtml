@@ -1,0 +1,30 @@
+@{
+    ViewData["Title"] = "Login";
+}
+@model ListaDeTareas.Models.ViewModel.UsuarioVM
+
+<div class="text-center">
+    <h1>Inicio de sesión</h1>
+
+    <form asp-action="Login" asp-controller="Login" id="Login">
+        <div class="row">
+            <div class="form-group col-md-3">
+                <label>Usuario</label>
+                <input type="text" asp-for="Username" class="form-control">
+                <span asp-validation-for="Username"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-3">
+                <label>Contraseña</label>
+                <input type="password" asp-for="Clave" class="form-control">
+                <span asp-validation-for="Clave"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-3">
+                <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
+            </div>
+        </div>
+    </form>
+</div>
