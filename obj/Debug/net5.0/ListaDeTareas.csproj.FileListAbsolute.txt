@@ -148,3 +148,4 @@ C:\Users\Toti\Desktop\puntoNet\Challenge\listaDeTareas\obj\Debug\net5.0\Razor\Vi
 C:\Users\Toti\Desktop\puntoNet\Challenge\listaDeTareas\obj\Debug\net5.0\Razor\Views\Tarea\Todas.cshtml.g.cs
 C:\Users\Toti\Desktop\puntoNet\Challenge\listaDeTareas\obj\Debug\net5.0\Razor\Views\Tarea\Propias.cshtml.g.cs
 C:\Users\Toti\Desktop\puntoNet\Challenge\listaDeTareas\obj\Debug\net5.0\Razor\Views\Tarea\_Formulario.cshtml.g.cs
+C:\Users\Toti\Desktop\puntoNet\Challenge\listaDeTareas\obj\Debug\net5.0\Razor\Views\Tarea\Modificar.cshtml.g.cs
