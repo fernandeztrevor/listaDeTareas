@@ -63,13 +63,15 @@ namespace listaDeTareas.Controllers
             var emailLogged = HttpContext.User.Identity.Name;
             var usrLogged = await ctx.Usuarios.Where(x => x.Email == emailLogged).FirstOrDefaultAsync();
 
+            if (usrLogged.IdRol == 2)
+            {
+                tarea.IdAsignado = usrLogged.IdUsuario;
+            }
+
             if (!_Tarea)
             {
                 tarea.IdCreador = usrLogged.IdUsuario;
-                if (usrLogged.IdRol == 2)
-                {
-                    tarea.IdAsignado = usrLogged.IdUsuario;
-                }
+
                 tarea.Fecha = System.DateTime.Now;
                 tarea.Finalizada = false;
 
@@ -86,6 +88,9 @@ namespace listaDeTareas.Controllers
             return RedirectToAction("Index");
         }
 
+
+[BindProperty]
+        public string Pass { get; set; }
         public async Task<IActionResult> Modificar(int id)
         {
             var emailLogged = HttpContext.User.Identity.Name;
@@ -93,7 +98,7 @@ namespace listaDeTareas.Controllers
             var tarea = ctx.Tareas.Find(id);
             // o se puede usar ctx.Cliente.Where(x=>x.IdCliente == id).Single() SingleOfDefault(), el segundo es a prueba de que no exista
             ViewBag.Usuarios = await ctx.Usuarios.OrderBy(x => x.IdUsuario).ToListAsync();
-            
+
             if (tarea == null)
             {
                 return RedirectToAction("Index");

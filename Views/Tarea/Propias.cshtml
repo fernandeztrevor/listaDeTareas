@@ -26,9 +26,13 @@
                 <td>@tarea.IdAsignadoNavigation.Email</td>
                 <td>@tarea.IdCreadorNavigation.Email</td>
                 <td>@tarea.Fecha</td>
+                @if(ViewBag.usrLogged.Email == tarea.IdCreadorNavigation.Email || !tarea.Bloqueada){
+                    
                 <td>
                     <a asp-action="Modificar" asp-controller="Tarea" asp-route-id="@tarea.IdTarea">Modificar</a>
                 </td>
+
+                }
                 <td>
                     <a asp-action="Finalizar" onclick="return confirm('Desea finalizar esta tarea?')"
                     asp-controller="Tarea" asp-route-id="@tarea.IdTarea">Finalizar</a>
