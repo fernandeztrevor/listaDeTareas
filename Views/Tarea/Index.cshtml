@@ -1,5 +1,101 @@
-@{
-    ViewData["Title"] = "Tarea";
-}
+<partial name="~/Views/Tarea/_Formulario.cshtml"></partial>
+<hr>
+<h2>Mis tareas pendientes</h2>
 
-<h1>Mis tareas</h1>
+<table class="table table-stripped table-bordered">
+    <thead>
+        <tr>
+            <th>Titulo</th>
+            <th>Descripcion</th>
+            <th>Usuario Asignado</th>
+            <th>Creador</th>
+            <th>Fecha</th>
+            <th colspan="2">Opciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Tarea tarea in ViewBag.Tareas)
+        {
+            <tr>
+                <td>@tarea.Titulo</td>
+                <td>@tarea.Descripcion</td>
+                <td>@tarea.IdAsignadoNavigation.Email</td>
+                <td>@tarea.IdCreadorNavigation.Email</td>
+                <td>@tarea.Fecha</td>
+                @if(ViewBag.usrLogged.Email == tarea.IdCreadorNavigation.Email || !tarea.Bloqueada){
+                    
+                <td>
+                    <a asp-action="Modificar" asp-controller="Tarea" asp-route-id="@tarea.IdTarea">Modificar</a>
+                </td>
+
+                }
+                <td>
+                    <a asp-action="Finalizar" onclick="return confirm('Desea finalizar esta tarea?')"
+                    asp-controller="Tarea" asp-route-id="@tarea.IdTarea">Finalizar</a>
+                </td>
+            </tr>
+
+        }
+    </tbody>
+</table>
+
+<h2>Mis tareas finalizadas</h2>
+
+<table class="table table-stripped table-bordered">
+    <thead>
+        <tr>
+            <th>Titulo</th>
+            <th>Descripcion</th>
+            <th>Usuario Asignado</th>
+            <th>Creador</th>
+            <th>Fecha</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Tarea tarea in ViewBag.TareasFinalizadas)
+        {
+            <tr class="table-active">
+                <td>@tarea.Titulo</td>
+                <td>@tarea.Descripcion</td>
+                <td>@tarea.IdAsignadoNavigation.Email</td>
+                <td>@tarea.IdCreadorNavigation.Email</td>
+                <td>@tarea.Fecha</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h2>Pendientes creadas por mí</h2>
+
+<table class="table table-stripped table-bordered">
+    <thead>
+        <tr>
+            <th>Titulo</th>
+            <th>Descripcion</th>
+            <th>Usuario Asignado</th>
+            <th>Creador</th>
+            <th>Fecha</th>
+            <th colspan="2">Opciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Tarea tarea in ViewBag.PendientesAsignadas)
+        {
+            <tr>
+                <td>@tarea.Titulo</td>
+                <td>@tarea.Descripcion</td>
+                <td>@tarea.IdAsignadoNavigation.Email</td>
+                <td>@tarea.IdCreadorNavigation.Email</td>
+                <td>@tarea.Fecha</td>                
+                <td>
+                    <a asp-action="Modificar" asp-controller="Tarea" asp-route-id="@tarea.IdTarea">Modificar</a>
+                </td>
+                <td>
+                    <a asp-action="Finalizar" onclick="return confirm('Desea finalizar esta tarea?')"
+                    asp-controller="Tarea" asp-route-id="@tarea.IdTarea">Finalizar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
