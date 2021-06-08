@@ -35,25 +35,15 @@ namespace ListaDeTareas.Controllers
 
             if (!ModelState.IsValid)
             {
-                return BadRequest(new JObject(){
-                    // {"StatusCode", 400},
-                    // {"Message", "Error"}
-                    new JProperty("StatusCode", 400),
-                    new JProperty("Message", "Error")
-                });
+                return Problem(statusCode: 400);
             }
             else
             {
                 var result = await ctx.Usuarios.Include("IdRolNavigation").Where(x => x.Email == Usuario.Username).SingleOrDefaultAsync();
 
                 if (result == null)
-                {
-                    return NotFound(new JObject(){
-                    // {"StatusCode", 404},
-                    // {"Message", "Usuario no encontrado"}
-                    new JProperty("StatusCode", 404),
-                    new JProperty("Message", "Usuario no encontrado")
-                });
+                {                    
+                    return Problem(statusCode: 404, title: "Usuario no encontrado");
                 }
                 else
                 {
@@ -75,15 +65,11 @@ namespace ListaDeTareas.Controllers
                                 ExpiresUtc = DateTime.Now.AddDays(1),
                                 IsPersistent = true
                             });
-                        return Ok();
+                        return StatusCode(200, Usuario.Username);
                     }
                     else
                     {
-                        var response = new JObject(){
-                            new JProperty("StatusCode", 403),
-                            new JProperty("Message", "Usuario o contraseña incorrecta")
-                        };
-                        return StatusCode(403, response);
+                        return Problem(statusCode: 403, title: "Usuario o contraseña incorrecta");
                     }
                 }
             }

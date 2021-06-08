@@ -1,13 +1,16 @@
 @model Tarea;
 
-<form asp-action="SetTarea" asp-controller="Tarea" method="POST">
+<form asp-action="SetTarea" asp-controller="Tarea" id="Tarea" method="POST">
     <input type="hidden" asp-for="IdTarea">
+    <input type="hidden" asp-for="IdCreador">
+    <input type="hidden" asp-for="Fecha">
+    <input type="hidden" asp-for="Finalizada">
     <div class="row">
         <div class="form-group col-4">
             <label>Título</label>
             <input type="text" asp-for="Titulo" class="form-control">
             <span asp-validation-for="Titulo"></span>
-        </div>
+        </div>        
 
         @if (ViewBag.usrLogged.IdRol == 1)
         {
@@ -23,23 +26,20 @@
             <textarea asp-for="Descripcion" class="form-control"></textarea>
             <span asp-validation-for="Descripcion"></span>
         </div>
-
+@if (ViewBag.usrLogged.IdRol == 1)
+        {
         <div class="form-group col-4">
-
             <select asp-for="Bloqueada" class="form-control">
                 <option value="true">Solo yo puedo modificar la tarea</option>
                 <option value="false">Cualquiera puede modificar la tarea</option>
             </select>
-        </div>
-
+        </div>        
+        }
         <div class="form-group col-4">
             @* <button type="submit" class="btn btn-primary">Crear Tarea</button> *@
             <button type="submit" class="btn btn-primary">
                 @(Model.IdTarea>0 ?"Actualizar":"Crear Tarea")
             </button>
         </div>
-    </div>
-
-
-
+    </div>  
 </form>

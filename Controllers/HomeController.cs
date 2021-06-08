@@ -27,7 +27,7 @@ namespace ListaDeTareas.Controllers
         public IActionResult Index()
         {
             //return View();
-            return Redirect("/Tarea/Propias");
+            return Redirect("/Tarea");
         }
 
 

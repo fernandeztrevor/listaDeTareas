@@ -17,7 +17,7 @@ $(document).on('submit', '#Registrar', function (e){
             alert("Usuario registrado con exito");
         },
         error: function (xhr, status){
-            alert(xhr.responseJSON.Message);
+            alert(xhr.responseJSON.title);
         },
         complete: function (){
             $('#Registrar button[type-submit]').prop('disabled', false);
@@ -35,15 +35,40 @@ $(document).on('submit', '#Login', function (e){
         url: this.action,
         data: $(this).serialize(),
         success: function (data){
-            alert("Bienvenido " + data.Username + data.Nombre + data.Email);
+            alert("Bienvenido " + data);
             console.log(data);
             window.location= "/Home";
         },
         error: function (xhr, status, error){
-            alert(xhr.responseJSON.Message);            
+            alert(xhr.responseJSON.title);            
         },
         complete: function (){
             $('#Login button[type-submit]').prop('disabled', false);
         }
     })
 })
+
+$(document).on('submit', '#Tarea', function (e){
+    e.preventDefault();
+    $.ajax({
+        beforeSend: function(){
+            $('#Tarea button[type-submit]').prop('disabled', true);
+        },
+        type: this.method,
+        url: this.action,
+        data: $(this).serialize(),
+        success: function (data){
+            alert(data);
+            console.log(data);
+            window.location= "/Home";
+        },
+        error: function (xhr, status, error){
+            alert(xhr.responseJSON.title);  
+            window.location= "/Home";          
+        },
+        complete: function (){
+            $('#Tarea button[type-submit]').prop('disabled', false);
+        }
+    })
+})
+
