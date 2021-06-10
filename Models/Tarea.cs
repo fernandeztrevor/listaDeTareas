@@ -13,13 +13,21 @@ namespace ListaDeTareas.Models
         [Key]
         [Column("idTarea")]
         public int IdTarea { get; set; }
-        [Required]
+        
+
+        [Required(ErrorMessage = "Escriba el titulo de la tarea")]
         [Column("titulo")]
         [StringLength(100)]
+        [MinLength(5, ErrorMessage = "Escriba al menos 5 caracteres")]
+        [MaxLength(50, ErrorMessage = "Escriba un maximo de 50 caracteres")]
         public string Titulo { get; set; }
-        [Required]
+        
+
+        [Required(ErrorMessage = "Escriba la descripcion de la tarea")]
         [Column("descripcion")]
         [StringLength(200)]
+        [MinLength(5, ErrorMessage = "Escriba al menos 5 caracteres")]
+        [MaxLength(200, ErrorMessage = "Escriba un maximo de 200 caracteres")]
         public string Descripcion { get; set; }
         [Column("idCreador")]
         public int? IdCreador { get; set; }

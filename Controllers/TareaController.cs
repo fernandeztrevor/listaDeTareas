@@ -52,19 +52,19 @@ namespace listaDeTareas.Controllers
                 return RedirectToAction("Index");
             }
 
-            var _Tarea = await ctx.Tareas.Where(x => x.IdTarea == tarea.IdTarea).AnyAsync();
+            var _Tarea = await ctx.Tareas.Where(x => x.IdTarea == tarea.IdTarea).SingleOrDefaultAsync();
             var emailLogged = HttpContext.User.Identity.Name;
             var usrLogged = await ctx.Usuarios.Where(x => x.Email == emailLogged).FirstOrDefaultAsync();
+            
 
-
-            if (usrLogged.IdRol == 2)
+            if (_Tarea == null)
             {
-                tarea.IdAsignado = usrLogged.IdUsuario;
-                tarea.Bloqueada = true;
-            }
+                if (usrLogged.IdRol == 2)
+                {
+                    tarea.IdAsignado = usrLogged.IdUsuario;
+                    tarea.Bloqueada = true;
+                }
 
-            if (!_Tarea)
-            {
                 tarea.IdCreador = usrLogged.IdUsuario;
 
                 tarea.Fecha = System.DateTime.Now;
@@ -73,13 +73,18 @@ namespace listaDeTareas.Controllers
                 ctx.Tareas.Add(tarea);
             }
             else
-            {
-                if (tarea.Bloqueada == true && usrLogged.IdUsuario != tarea.IdCreador)
+            {                
+
+                if (!this.verificarPermisos(_Tarea, usrLogged))
                 {
-                    return Problem(statusCode: 400, title: "Modificacion Denegada. Sin permisos");
-                }
-                ctx.Tareas.Attach(tarea);
-                ctx.Entry(tarea).State = EntityState.Modified;
+                    return Problem(statusCode: 400, title: "Modificacion Denegada. Sin permisos!!!");
+                }                
+
+                _Tarea.Titulo = tarea.Titulo;
+                _Tarea.Descripcion = tarea.Descripcion;
+
+                ctx.Tareas.Attach(_Tarea);
+                ctx.Entry(_Tarea).State = EntityState.Modified;
             }
 
             await ctx.SaveChangesAsync();
@@ -123,5 +128,17 @@ namespace listaDeTareas.Controllers
 
             return RedirectToAction("Index");
         }
+
+        private bool verificarPermisos(Tarea tarea, Usuario usuario)
+        {
+            if (tarea.Bloqueada == true && usuario.IdUsuario != tarea.IdCreador)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+
     }
 }
