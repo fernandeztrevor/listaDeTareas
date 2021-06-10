@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "+2aQtWuXe90fyKOKbab5UXrui8CryBy3zOWYXqcTuuYSFEBk8bEKoJoPgicBvqRCN/85tHEq+QDDqFktOXifbg==",
+  "dgSpecHash": "5jzbAkzo2ReyZZGZqe2Qd3x2EL8P/nDs2AhqsyenMCF5sEgKOIqGZ8rvtnZ1mQvaH2vfuG2QQ+cvIybUzuRhvQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Toti\\Desktop\\puntoNet\\Challenge\\listaDeTareas\\ListaDeTareas.csproj",
+  "projectFilePath": "C:\\Users\\Toti\\Desktop\\puntoNet\\Challenge Shifta\\listaDeTareas\\ListaDeTareas.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Toti\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\Toti\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",

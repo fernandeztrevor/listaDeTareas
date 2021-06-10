@@ -19,17 +19,12 @@ namespace ListaDeTareas.Models
         [Key]
         [Column("idUsuario")]
         public int IdUsuario { get; set; }
-        // [Required]
-        // [Column("nombre")]
-        // [StringLength(100)]
-        // public string Nombre { get; set; }
-        // [Required]
-        // [Column("apellido")]
-        // [StringLength(100)]
-        // public string Apellido { get; set; }
-        [Required]
+        
+        [Required(ErrorMessage = "Escriba el email del usuario")]
         [Column("email")]
         [StringLength(100)]
+        [MinLength(5, ErrorMessage = "Escriba al menos 5 caracteres")]
+        [MaxLength(50, ErrorMessage = "Escriba un maximo de 50 caracteres")]
         public string Email { get; set; }
         [Required]
         [Column("clave")]

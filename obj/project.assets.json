@@ -5765,19 +5765,21 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Toti\\Desktop\\puntoNet\\Challenge\\listaDeTareas\\ListaDeTareas.csproj",
+      "projectUniqueName": "C:\\Users\\Toti\\Desktop\\puntoNet\\Challenge Shifta\\listaDeTareas\\ListaDeTareas.csproj",
       "projectName": "ListaDeTareas",
-      "projectPath": "C:\\Users\\Toti\\Desktop\\puntoNet\\Challenge\\listaDeTareas\\ListaDeTareas.csproj",
+      "projectPath": "C:\\Users\\Toti\\Desktop\\puntoNet\\Challenge Shifta\\listaDeTareas\\ListaDeTareas.csproj",
       "packagesPath": "C:\\Users\\Toti\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Toti\\Desktop\\puntoNet\\Challenge\\listaDeTareas\\obj\\",
+      "outputPath": "C:\\Users\\Toti\\Desktop\\puntoNet\\Challenge Shifta\\listaDeTareas\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Toti\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\Toti\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net5.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -5825,7 +5827,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.202\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.300\\RuntimeIdentifierGraph.json"
       }
     }
   }
