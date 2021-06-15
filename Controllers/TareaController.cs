@@ -46,7 +46,7 @@ namespace ListaDeTareas.Controllers
         [HttpPost]
         public async Task<IActionResult> SetTarea()
         {
-            
+
             if (!ModelState.IsValid)
             {
                 return RedirectToAction("Index");
@@ -55,7 +55,7 @@ namespace ListaDeTareas.Controllers
             var _Tarea = await ctx.Tareas.Where(x => x.IdTarea == tarea.IdTarea).SingleOrDefaultAsync();
             var emailLogged = HttpContext.User.Identity.Name;
             var usrLogged = await ctx.Usuarios.Where(x => x.Email == emailLogged).FirstOrDefaultAsync();
-            
+
 
             if (_Tarea == null)
             {
@@ -73,7 +73,7 @@ namespace ListaDeTareas.Controllers
                 ctx.Tareas.Add(tarea);
             }
             else
-            {                
+            {
 
                 if (!verificarPermisos(_Tarea, usrLogged))
                 {
@@ -95,7 +95,7 @@ namespace ListaDeTareas.Controllers
 
             await ctx.SaveChangesAsync();
 
-            return StatusCode(statusCode:200, "Operacion exitosa");
+            return StatusCode(statusCode: 200, "Operacion exitosa");
         }
 
 
@@ -145,7 +145,7 @@ namespace ListaDeTareas.Controllers
             return true;
         }
 
-        
+
 
 
     }

@@ -31,7 +31,7 @@ namespace ListaDeTareas.Models
         [MaxLength(200, ErrorMessage = "Escriba un maximo de 200 caracteres")]
         public string Descripcion { get; set; }
         [Column("idCreador")]
-        public int? IdCreador { get; set; }
+        public int IdCreador { get; set; }
         [Column("idAsignado")]
         public int? IdAsignado { get; set; }
         [Column("fecha", TypeName = "datetime")]
@@ -39,7 +39,7 @@ namespace ListaDeTareas.Models
         [Column("finalizada")]
         public bool? Finalizada { get; set; }
         [Column("bloqueada")]
-        public bool? Bloqueada { get; set; }
+        public bool Bloqueada { get; set; }
 
         [ForeignKey(nameof(IdAsignado))]
         [InverseProperty(nameof(Usuario.TareaIdAsignadoNavigations))]
@@ -47,8 +47,5 @@ namespace ListaDeTareas.Models
         [ForeignKey(nameof(IdCreador))]
         [InverseProperty(nameof(Usuario.TareaIdCreadorNavigations))]
         public virtual Usuario IdCreadorNavigation { get; set; }
-
-        
-
     }
 }

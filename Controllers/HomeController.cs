@@ -14,7 +14,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace ListaDeTareas.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class HomeController : Controller
     {
         ListaDeTareasCTX ctx;
@@ -31,7 +31,7 @@ namespace ListaDeTareas.Controllers
         }
 
 
-        [AllowAnonymous]
+        //[AllowAnonymous]
         public async Task<IActionResult> Registro()
         {
             return View();
@@ -67,7 +67,7 @@ namespace ListaDeTareas.Controllers
                     usuario.Clave = "";
                     usuario.Llave = "";
 
-                    return Created($"/Usuarios/{usuario.IdUsuario}", usuario);
+                    return StatusCode(statusCode: 200, "Registro exitoso");
                 }
             }
 
