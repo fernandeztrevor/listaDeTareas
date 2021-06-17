@@ -43,8 +43,7 @@ namespace ListaDeTareas.Controllers
         [HttpPost]
         public async Task<IActionResult> Registrar()
         {
-            var result = await ctx.Usuarios.Where(x => x.Email == usuario.Email)
-                .SingleOrDefaultAsync();
+            var result = await GetUsuario(usuario);
          
             if (result != null)
             {
@@ -79,5 +78,14 @@ namespace ListaDeTareas.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+
+        public async Task<Usuario> GetUsuario(Usuario usuario)
+        {
+            return await ctx.Usuarios.Where(x => x.Email == usuario.Email)
+                .SingleOrDefaultAsync();
+        }
+
+        
     }
 }

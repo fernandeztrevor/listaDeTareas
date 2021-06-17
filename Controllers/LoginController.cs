@@ -6,8 +6,6 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
-using Newtonsoft.Json.Linq;
 using ListaDeTareas.Helper;
 using ListaDeTareas.Models;
 using ListaDeTareas.Models.ViewModel;
@@ -39,7 +37,7 @@ namespace ListaDeTareas.Controllers
             }
             else
             {
-                var result = await ctx.Usuarios.Include("IdRolNavigation").Where(x => x.Email == Usuario.Username).SingleOrDefaultAsync();
+                var result = await GetUserWithRole(Usuario);
 
                 if (result == null)
                 {                    
@@ -49,13 +47,7 @@ namespace ListaDeTareas.Controllers
                 {
                     if (HashHelper.CheckHash(Usuario.Clave, result.Clave, result.Llave))
                     {
-                        var identity = new ClaimsIdentity(CookieAuthenticationDefaults.AuthenticationScheme, ClaimTypes.Name, ClaimTypes.Role);
-                        identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, result.IdUsuario.ToString()));
-                        identity.AddClaim(new Claim(ClaimTypes.Email, result.Email));
-                        identity.AddClaim(new Claim(ClaimTypes.Name, result.Email));
-
-                        identity.AddClaim(new Claim("Rol", result.IdRol.ToString()));
-
+                        var identity = SetIdentity(result);
 
                         var principal = new ClaimsPrincipal(identity);
                         await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
@@ -80,5 +72,23 @@ namespace ListaDeTareas.Controllers
             await HttpContext.SignOutAsync();
             return Redirect("/Login");
         }
+
+        public async Task<Usuario> GetUserWithRole(UsuarioVM usuario)
+        {
+            return await ctx.Usuarios.Include("IdRolNavigation").Where(x => x.Email == usuario.Username).SingleOrDefaultAsync();
+        }
+
+        public ClaimsIdentity SetIdentity(Usuario usuario)
+        {
+            var identity = new ClaimsIdentity(CookieAuthenticationDefaults.AuthenticationScheme, ClaimTypes.Name, ClaimTypes.Role);
+            identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, usuario.IdUsuario.ToString()));
+            identity.AddClaim(new Claim(ClaimTypes.Email, usuario.Email));
+            identity.AddClaim(new Claim(ClaimTypes.Name, usuario.Email));
+            identity.AddClaim(new Claim("Rol", usuario.IdRol.ToString()));
+
+            return identity;
+        }
+
+        
     }
 }

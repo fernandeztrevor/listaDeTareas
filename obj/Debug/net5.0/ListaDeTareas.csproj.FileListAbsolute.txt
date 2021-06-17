@@ -226,3 +226,4 @@ C:\Users\Toti\Desktop\puntoNet\Challenge Shifta\listaDeTareas\obj\Debug\net5.0\L
 C:\Users\Toti\Desktop\puntoNet\Challenge Shifta\listaDeTareas\obj\Debug\net5.0\ref\ListaDeTareas.dll
 C:\Users\Toti\Desktop\puntoNet\Challenge Shifta\listaDeTareas\obj\Debug\net5.0\ListaDeTareas.pdb
 C:\Users\Toti\Desktop\puntoNet\Challenge Shifta\listaDeTareas\obj\Debug\net5.0\ListaDeTareas.genruntimeconfig.cache
+C:\Users\Toti\Desktop\puntoNet\Challenge Shifta\listaDeTareas\obj\Debug\net5.0\ListaDeTareas.csproj.AssemblyReference.cache

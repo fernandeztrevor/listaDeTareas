@@ -1,13 +1,10 @@
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using ListaDeTareas.Helper;
 using ListaDeTareas.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace ListaDeTareas.Controllers
 {
@@ -24,18 +21,16 @@ namespace ListaDeTareas.Controllers
         public async Task<IActionResult> Index()
         {
             var emailLogged = HttpContext.User.Identity.Name;
-            ViewBag.usrLogged = await ctx.Usuarios.Where(x => x.Email == emailLogged).FirstOrDefaultAsync();
 
-            ViewBag.Tareas = await ctx.Tareas.OrderBy(x => x.Fecha).Include(x => x.IdAsignadoNavigation)
-                .Include(x => x.IdCreadorNavigation).Where(x => x.IdAsignadoNavigation.Email == emailLogged && x.Finalizada == false).ToListAsync();
+            ViewBag.usrLogged = await GetUserLogged(emailLogged);
 
-            ViewBag.PendientesAsignadas = await ctx.Tareas.OrderBy(x => x.Fecha).Include(x => x.IdAsignadoNavigation)
-                .Include(x => x.IdCreadorNavigation).Where(x => x.IdCreadorNavigation.Email == emailLogged && x.Finalizada == false).ToListAsync();
+            ViewBag.Tareas = await GetTareas(emailLogged);
 
-            ViewBag.TareasFinalizadas = await ctx.Tareas.OrderBy(x => x.Fecha).Include(x => x.IdAsignadoNavigation)
-                .Include(x => x.IdCreadorNavigation).Where(x => x.IdAsignadoNavigation.Email == emailLogged && x.Finalizada == true).ToListAsync();
+            ViewBag.PendientesAsignadas = await GetTareasPendientesAsignadas(emailLogged);
 
-            ViewBag.Usuarios = await ctx.Usuarios.OrderBy(x => x.IdUsuario).ToListAsync();
+            ViewBag.TareasFinalizadas = await GetTareasFinalizadas(emailLogged);
+
+            ViewBag.Usuarios = await GetUsuarios();
 
             Tarea Tarea = new Tarea();
             return View(Tarea);
@@ -52,9 +47,10 @@ namespace ListaDeTareas.Controllers
                 return RedirectToAction("Index");
             }
 
-            var _Tarea = await ctx.Tareas.Where(x => x.IdTarea == tarea.IdTarea).SingleOrDefaultAsync();
+            var _Tarea = await GetTarea(tarea);
+
             var emailLogged = HttpContext.User.Identity.Name;
-            var usrLogged = await ctx.Usuarios.Where(x => x.Email == emailLogged).FirstOrDefaultAsync();
+            var usrLogged = await GetUserLogged(emailLogged);
 
 
             if (_Tarea == null)
@@ -98,16 +94,14 @@ namespace ListaDeTareas.Controllers
             return StatusCode(statusCode: 200, "Operacion exitosa");
         }
 
-
-
         public async Task<IActionResult> Modificar(int id)
         {
             var emailLogged = HttpContext.User.Identity.Name;
-            ViewBag.usrLogged = await ctx.Usuarios.Where(x => x.Email == emailLogged).FirstOrDefaultAsync();
+            ViewBag.usrLogged = await GetUserLogged(emailLogged);
 
             var tarea = ctx.Tareas.Find(id);
 
-            ViewBag.Usuarios = await ctx.Usuarios.OrderBy(x => x.IdUsuario).ToListAsync();
+            ViewBag.Usuarios = await GetUsuarios();
 
             if (tarea == null)
             {
@@ -146,7 +140,38 @@ namespace ListaDeTareas.Controllers
         }
 
 
+        public async Task<Usuario> GetUserLogged(string emailLogged)
+        {
+            return await ctx.Usuarios.Where(x => x.Email == emailLogged).FirstOrDefaultAsync();
+        }
 
+        public async Task<List<Tarea>> GetTareas(string emailLogged)
+        {
+            return await ctx.Tareas.OrderBy(x => x.Fecha).Include(x => x.IdAsignadoNavigation)
+                .Include(x => x.IdCreadorNavigation).Where(x => x.IdAsignadoNavigation.Email == emailLogged && x.Finalizada == false).ToListAsync();
+        }
+
+        public async Task<List<Tarea>> GetTareasPendientesAsignadas(string emailLogged)
+        {
+            return await ctx.Tareas.OrderBy(x => x.Fecha).Include(x => x.IdAsignadoNavigation)
+            .Include(x => x.IdCreadorNavigation).Where(x => x.IdCreadorNavigation.Email == emailLogged && x.Finalizada == false).ToListAsync();
+        }
+
+        public async Task<List<Tarea>> GetTareasFinalizadas(string emailLogged)
+        {
+            return await ctx.Tareas.OrderBy(x => x.Fecha).Include(x => x.IdAsignadoNavigation)
+                .Include(x => x.IdCreadorNavigation).Where(x => x.IdAsignadoNavigation.Email == emailLogged && x.Finalizada == true).ToListAsync();
+        }
+
+        public async Task<List<Usuario>> GetUsuarios()
+        {
+            return await ctx.Usuarios.OrderBy(x => x.IdUsuario).ToListAsync();
+        }
+
+        public async Task<Tarea> GetTarea(Tarea tarea)
+        {
+            return await ctx.Tareas.Where(x => x.IdTarea == tarea.IdTarea).SingleOrDefaultAsync();
+        }
 
     }
 }
